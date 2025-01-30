@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPS Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .location-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="location-info">
+        <div>Latitude: <span id="latitude">-</span></div>
+        <div>Longitude: <span id="longitude">-</span></div>
+        <div>Accuracy: <span id="accuracy">-</span> meters</div>
+        <button onclick="startTracking()">Start Tracking</button>
+        <button onclick="stopTracking()">Stop Tracking</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+        let map;
+        let marker;
+        let watchId;
+        let polyline;
+        let coordinates = [];
+
+        // Initialize map
+        function initMap() {
+            map = L.map('map').setView([0, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            polyline = L.polyline([], {
+                color: 'blue',
+                weight: 3,
+                opacity: 0.7
+            }).addTo(map);
+        }
+
+        // Update location display
+        function updateLocation(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
+
+            document.getElementById('latitude').textContent = lat.toFixed(6);
+            document.getElementById('longitude').textContent = lng.toFixed(6);
+            document.getElementById('accuracy').textContent = accuracy.toFixed(1);
+
+            // Update marker position
+            if (!marker) {
+                marker = L.marker([lat, lng]).addTo(map);
+            } else {
+                marker.setLatLng([lat, lng]);
+            }
+
+            // Update path
+            coordinates.push([lat, lng]);
+            polyline.setLatLngs(coordinates);
+
+            // Center map on current position
+            map.setView([lat, lng], 16);
+        }
+
+        // Handle location errors
+        function handleLocationError(error) {
+            console.error('Error getting location:', error);
+            alert(`Location error: ${error.message}`);
+        }
+
+        // Start tracking
+        function startTracking() {
+            if ("geolocation" in navigator) {
+                watchId = navigator.geolocation.watchPosition(
+                    updateLocation,
+                    handleLocationError,
+                    {
+                        enableHighAccuracy: true,
+                        maximumAge: 0,
+                        timeout: 5000
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by your browser");
+            }
+        }
+
+        // Stop tracking
+        function stopTracking() {
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+                watchId = null;
+            }
+        }
+
+        // Initialize map when page loads
+        window.onload = initMap;
+    </script>
+</body>
+</html>

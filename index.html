@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GPS Tracker</title>
+    <title>Visitor Tracking System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <style>
         #map {
-            height: 100vh;
+            height: 70vh;
             width: 100%;
         }
         .location-info {
@@ -19,29 +19,95 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             z-index: 1000;
         }
+        .history-panel {
+            height: 30vh;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f5f5f5;
+        }
+        .alert {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .building-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
     <div id="map"></div>
+    <div class="building-info">
+        <h3>Building Information</h3>
+        <div id="currentBuilding">Not in any building</div>
+        <div id="timeSpent">Time spent: 0 minutes</div>
+    </div>
     <div class="location-info">
         <div>Latitude: <span id="latitude">-</span></div>
         <div>Longitude: <span id="longitude">-</span></div>
         <div>Accuracy: <span id="accuracy">-</span> meters</div>
-        <button onclick="startTracking()">Start Tracking</button>
-        <button onclick="stopTracking()">Stop Tracking</button>
+        <div>
+            Visitor ID: <input type="text" id="visitorId" placeholder="Enter ID">
+            <button onclick="startTracking()">Start Tracking</button>
+            <button onclick="stopTracking()">Stop Tracking</button>
+        </div>
+    </div>
+    <div class="history-panel">
+        <h3>Visit History</h3>
+        <div id="visitHistory"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script>
-        let map;
-        let marker;
-        let watchId;
-        let polyline;
-        let coordinates = [];
+        let map, marker, watchId, polyline, coordinates = [];
+        let visitStart = null;
+        let currentBuilding = null;
+        let buildingEntryTime = null;
+        let visitHistory = [];
 
-        // Initialize map
+        // Define buildings and their coordinates (adjusted for the correct location)
+            const buildings = {
+    'Belmonte Building': {
+        coords: [
+            [14.70084780751153, 121.0330828674236],
+            [14.70094780751153, 121.0331828674236]  // Adding a small offset for rectangle
+        ],
+        departments: ['IC Building']
+    },
+    'Auditorium/IK Building': {
+        coords: [
+            [14.700738477702336, 121.03239124936754],
+            [14.700838477702336, 121.03249124936754]  // Adding a small offset for rectangle
+        ],
+        departments: ['Auditorium', 'IK Facilities']
+    }
+};
+
         function initMap() {
-            map = L.map('map').setView([0, 0], 2);
+            const centerLat = 14.7007;  // Updated center latitude
+            const centerLng = 121.0349;  // Updated center longitude
+            
+            map = L.map('map', {
+                center: [centerLat, centerLng],
+                zoom: 17,
+                minZoom: 16,
+                maxZoom: 19,
+                maxBounds: [
+                    [centerLat - 0.01, centerLng - 0.01],
+                    [centerLat + 0.01, centerLng + 0.01]
+                ],
+                maxBoundsViscosity: 1.0
+            });
+
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
@@ -51,9 +117,82 @@
                 weight: 3,
                 opacity: 0.7
             }).addTo(map);
+
+            // Add buildings to map
+            for (let buildingName in buildings) {
+                const building = buildings[buildingName];
+                L.rectangle(building.coords, {
+                    color: 'green',
+                    fillOpacity: 0.3
+                }).bindPopup(buildingName + '<br>Departments: ' + building.departments.join(', ')).addTo(map);
+            }
         }
 
-        // Update location display
+        function checkBuilding(lat, lng) {
+            for (let buildingName in buildings) {
+                const building = buildings[buildingName];
+                const [[minLat, minLng], [maxLat, maxLng]] = building.coords;
+                
+                if (lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng) {
+                    if (currentBuilding !== buildingName) {
+                        if (currentBuilding) {
+                            recordVisit(currentBuilding);
+                        }
+                        currentBuilding = buildingName;
+                        buildingEntryTime = new Date();
+                        document.getElementById('currentBuilding').textContent = `Current location: ${buildingName}`;
+                    }
+                    return buildingName;
+                }
+            }
+            if (currentBuilding) {
+                recordVisit(currentBuilding);
+                currentBuilding = null;
+                buildingEntryTime = null;
+                document.getElementById('currentBuilding').textContent = 'Not in any building';
+            }
+            return null;
+        }
+
+        function recordVisit(buildingName) {
+            const duration = Math.round((new Date() - buildingEntryTime) / 1000 / 60); // in minutes
+            const visitorId = document.getElementById('visitorId').value || 'Unknown';
+            
+            const visit = {
+                visitorId: visitorId,
+                building: buildingName,
+                duration: duration,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            visitHistory.unshift(visit);
+            updateVisitHistory();
+            
+            // Check for long duration alert (over 60 minutes)
+            if (duration >= 60) {
+                createAlert(`Alert: Visitor ${visitorId} spent ${duration} minutes in ${buildingName}`);
+            }
+        }
+
+        function updateVisitHistory() {
+            const historyHtml = visitHistory.map(visit => `
+                <div style="border-bottom: 1px solid #ccc; padding: 5px;">
+                    Visitor ${visit.visitorId} visited ${visit.building}<br>
+                    Duration: ${visit.duration} minutes<br>
+                    Time: ${visit.timestamp}
+                </div>
+            `).join('');
+            document.getElementById('visitHistory').innerHTML = historyHtml;
+        }
+
+        function createAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert';
+            alertDiv.textContent = message;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => alertDiv.remove(), 5000);
+        }
+
         function updateLocation(position) {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
@@ -63,29 +202,41 @@
             document.getElementById('longitude').textContent = lng.toFixed(6);
             document.getElementById('accuracy').textContent = accuracy.toFixed(1);
 
-            // Update marker position
             if (!marker) {
                 marker = L.marker([lat, lng]).addTo(map);
             } else {
                 marker.setLatLng([lat, lng]);
             }
 
-            // Update path
             coordinates.push([lat, lng]);
             polyline.setLatLngs(coordinates);
 
-            // Center map on current position
-            map.setView([lat, lng], 16);
+            checkBuilding(lat, lng);
+
+            if (buildingEntryTime) {
+                const timeSpent = Math.round((new Date() - buildingEntryTime) / 1000 / 60);
+                document.getElementById('timeSpent').textContent = `Time spent: ${timeSpent} minutes`;
+            }
+
+            map.setView([lat, lng], 17, {
+                animate: true,
+                pan: { duration: 1 }
+            });
         }
 
-        // Handle location errors
         function handleLocationError(error) {
             console.error('Error getting location:', error);
             alert(`Location error: ${error.message}`);
         }
 
-        // Start tracking
         function startTracking() {
+            const visitorId = document.getElementById('visitorId').value;
+            if (!visitorId) {
+                alert('Please enter a Visitor ID before starting tracking');
+                return;
+            }
+
+            visitStart = new Date();
             if ("geolocation" in navigator) {
                 watchId = navigator.geolocation.watchPosition(
                     updateLocation,
@@ -101,15 +252,19 @@
             }
         }
 
-        // Stop tracking
         function stopTracking() {
             if (watchId) {
+                if (currentBuilding) {
+                    recordVisit(currentBuilding);
+                }
                 navigator.geolocation.clearWatch(watchId);
                 watchId = null;
+                visitStart = null;
+                currentBuilding = null;
+                buildingEntryTime = null;
             }
         }
 
-        // Initialize map when page loads
         window.onload = initMap;
     </script>
 </body>

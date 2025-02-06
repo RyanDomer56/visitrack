@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "tracking_db");
+$conn = new mysqli("localhost", "root", "", "vlts.db");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -7,9 +7,9 @@ if ($conn->connect_error) {
 
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
-$timestamp = date("Y-m-d H:i:s");
+$time_stamp = date("Y-m-d H:i:s");
 
-$sql = "INSERT INTO gps_tracking (latitude, longitude, timestamp) VALUES ('$latitude', '$longitude', '$timestamp')";
+$sql = "INSERT INTO location (latitude, longitude, time_stamp) VALUES ('$latitude', '$longitude', '$time_stamp')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Location saved";

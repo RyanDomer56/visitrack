@@ -1,11 +1,11 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "tracking_db");
+$conn = new mysqli("localhost", "root", "", "vlts.db");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT latitude, longitude FROM gps_tracking ORDER BY timestamp DESC LIMIT 1";
+$sql = "SELECT latitude, longitude FROM location ORDER BY time_stamp DESC LIMIT 1";
 $result = $conn->query($sql);
 
 if ($row = $result->fetch_assoc()) {

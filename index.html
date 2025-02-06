@@ -42,6 +42,12 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             z-index: 1000;
         }
+        #trackingSummary {
+            margin-top: 10px;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +66,7 @@
             <button onclick="startTracking()">Start Tracking</button>
             <button onclick="stopTracking()">Stop Tracking</button>
         </div>
+        <div id="trackingSummary"></div>
     </div>
     <div class="history-panel">
         <h3>Visit History</h3>
@@ -74,27 +81,41 @@
         let buildingEntryTime = null;
         let visitHistory = [];
 
-        // Define buildings and their coordinates (adjusted for the correct location)
-            const buildings = {
-    'Belmonte Building': {
-        coords: [
-            [14.70084780751153, 121.0330828674236],
-            [14.70094780751153, 121.0331828674236]  // Adding a small offset for rectangle
-        ],
-        departments: ['IC Building']
-    },
-    'Auditorium/IK Building': {
-        coords: [
-            [14.700738477702336, 121.03239124936754],
-            [14.700838477702336, 121.03249124936754]  // Adding a small offset for rectangle
-        ],
-        departments: ['Auditorium', 'IK Facilities']
-    }
-};
+        // Define buildings and their coordinates
+        const buildings = {
+            'Belmonte Building': {
+                coords: [
+                    [14.70084780751153, 121.0330828674236],
+                    [14.70094780751153, 121.0331828674236]
+                ],
+                departments: ['IC Building']
+            },
+            'Auditorium/IK Building': {
+                coords: [
+                    [14.700738477702336, 121.03239124936754],
+                    [14.700838477702336, 121.03249124936754]
+                ],
+                departments: ['Auditorium', 'IK Facilities']
+            },
+            'Academic Building': {
+                coords: [
+                    [14.70099035734959, 121.03282099687829],
+                    [14.70109035734959, 121.03292099687829]
+                ],
+                departments: ['Academic Departments']
+            },
+            'Administration Building': {
+                coords: [
+                    [14.700547501542, 121.03264133098232],
+                    [14.700647501542, 121.03274133098232]
+                ],
+                departments: ['Administrative Offices']
+            }
+        };
 
         function initMap() {
-            const centerLat = 14.7007;  // Updated center latitude
-            const centerLng = 121.0349;  // Updated center longitude
+            const centerLat = 14.7007;
+            const centerLng = 121.0349;
             
             map = L.map('map', {
                 center: [centerLat, centerLng],
@@ -257,11 +278,25 @@
                 if (currentBuilding) {
                     recordVisit(currentBuilding);
                 }
+                
+                // Generate tracking summary
+                const trackingEnd = new Date();
+                const totalTrackingTime = Math.round((trackingEnd - visitStart) / 1000 / 60);
+                const summaryHtml = `
+                    <strong>Tracking Summary:</strong><br>
+                    Start Time: ${visitStart.toLocaleString()}<br>
+                    End Time: ${trackingEnd.toLocaleString()}<br>
+                    Total Tracking Duration: ${totalTrackingTime} minutes
+                `;
+                document.getElementById('trackingSummary').innerHTML = summaryHtml;
+
                 navigator.geolocation.clearWatch(watchId);
                 watchId = null;
                 visitStart = null;
                 currentBuilding = null;
                 buildingEntryTime = null;
+                coordinates = [];
+                polyline.setLatLngs([]);
             }
         }
 

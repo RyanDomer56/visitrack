@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visitor Tracking System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="tracker.css">
+    
+</head>
+<body>
+    <div id="map"></div>
+    <div class="building-info">
+        <h3>Building Information</h3>
+        <div id="currentBuilding">Not in any building</div>
+        <div id="timeSpent">Time spent: 0 minutes</div>
+    </div>
+    <div class="location-info">
+        <div>Latitude: <span id="latitude">-</span></div>
+        <div>Longitude: <span id="longitude">-</span></div>
+        <div>Accuracy: <span id="accuracy">-</span> meters</div>
+        <div>
+            Visitor ID: <input type="text" id="visitorId" placeholder="Enter ID">
+            <button onclick="startTracking()">Start Tracking</button>
+            <button onclick="stopTracking()">Stop Tracking</button>
+        </div>
+        <div id="trackingSummary"></div>
+    </div>
+    <div class="history-panel">
+        <h3>Visit History</h3>
+        <div id="visitHistory"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="tracker.js" defer></script>
+
+    
+</body>
+</html>

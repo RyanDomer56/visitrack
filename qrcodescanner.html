@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>University QR Scanner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <link rel="stylesheet" href="qrcodescanner.css">
+   
+</head>
+<body>
+    <div class="container">
+        <div class="scanner-container">
+            <h2>University QR Scanner</h2>
+            
+            <div class="button-group">
+                <button id="start-scan">Start Scanner</button>
+                <button id="stop-scan">Stop Scanner</button>
+            </div>
+
+            <div id="scan-status">Scanner ready</div>
+            <div id="error-message"></div>
+
+            <div id="qr-reader"></div>
+            <div id="scan-result"></div>
+        </div>
+
+        <div class="history-container">
+            <h3>Scan History</h3>
+            <div id="scan-history"></div>
+        </div>
+    </div>
+
+    <!-- Success sound -->
+    <audio id="scan-sound" src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAADAAAGhgBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr///////////////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAOkQgAAgAAABobXZzfKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQxAADwAABpAAAACAAADSAAAAETEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==" preload="auto"></audio>
+
+    <script src="qrcodescanner.js"></script>
+</body>
+</html>

@@ -350,4 +350,93 @@ function recordVisit(buildingName) {
     if (duration >= 60) {
         createAlert(`Alert: Visitor ${visitorId} spent ${duration} minutes in ${buildingName}`);
     }
+            // Add this code to tracker.js or create a new mobile-view.js file
+
+        // Function to detect mobile device
+        function isMobileDevice() {
+            return (window.innerWidth <= 768) || 
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0);
+        }
+
+        // Function to initialize mobile view
+        function initializeMobileView() {
+            if (isMobileDevice()) {
+                // Add mobile class to body
+                document.body.classList.add('mobile-view');
+                
+                // Create and append mobile navigation
+                const mobileNav = `
+                    <nav class="mobile-nav">
+                        <button class="nav-button active" data-view="map">
+                            <span class="nav-icon">🗺️</span>
+                            <span>Map</span>
+                        </button>
+                        <button class="nav-button" data-view="info">
+                            <span class="nav-icon">📍</span>
+                            <span>Location</span>
+                        </button>
+                        <button class="nav-button" data-view="history">
+                            <span class="nav-icon">📋</span>
+                            <span>History</span>
+                        </button>
+                    </nav>
+                `;
+                document.body.insertAdjacentHTML('beforeend', mobileNav);
+
+                // Initialize mobile navigation handlers
+                initMobileNavigation();
+            }
+        }
+
+        // Function to handle mobile navigation
+        function initMobileNavigation() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sidebar = document.querySelector('.sidebar');
+            const mapCard = document.querySelector('#map').parentElement;
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    // Handle view switching
+                    const view = button.dataset.view;
+                    switch(view) {
+                        case 'map':
+                            mapCard.style.display = 'block';
+                            sidebar.style.display = 'none';
+                            break;
+                        case 'info':
+                            mapCard.style.display = 'none';
+                            sidebar.style.display = 'block';
+                            document.querySelector('.history-panel').parentElement.parentElement.style.display = 'none';
+                            break;
+                        case 'history':
+                            mapCard.style.display = 'none';
+                            sidebar.style.display = 'block';
+                            document.querySelector('.history-panel').parentElement.parentElement.style.display = 'block';
+                            break;
+                    }
+                });
+            });
+        }
+
+        // Initialize mobile view when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeMobileView);
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', () => {
+            setTimeout(adjustMobileLayout, 100);
+        });
+
+        // Function to adjust layout on orientation change
+        function adjustMobileLayout() {
+            if (isMobileDevice()) {
+                const map = document.querySelector('#map');
+                map.style.height = window.innerHeight * 0.6 + 'px';
+            }
+        }
 }

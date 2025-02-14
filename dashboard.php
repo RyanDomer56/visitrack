@@ -21,31 +21,33 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Tracking Log Dashboard</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="dashboard.css">
-    
+    <link rel="stylesheet" href="styles/dashboard.css">
+
 
     <script>
-        // Auto refresh the page every 5 minutes
-        setTimeout(function(){
-            window.location.reload();
-        }, 300000);
+    // Auto refresh the page every 5 minutes
+    setTimeout(function() {
+        window.location.reload();
+    }, 300000);
 
-        // Update the "Last updated" timestamp
-        function updateLastUpdated() {
-            document.getElementById('last-update').textContent = 
-                'Last updated: ' + new Date().toLocaleString();
-        }
+    // Update the "Last updated" timestamp
+    function updateLastUpdated() {
+        document.getElementById('last-update').textContent =
+            'Last updated: ' + new Date().toLocaleString();
+    }
 
-        // Call when page loads
-        window.onload = updateLastUpdated;
+    // Call when page loads
+    window.onload = updateLastUpdated;
     </script>
 </head>
+
 <body>
     <div class="container">
         <div class="dashboard-header">
@@ -97,34 +99,34 @@ try {
 
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
+
     <script>
-        // Initialize the map
-        var map = L.map('map').setView([0, 0], 2);
+    // Initialize the map
+    var map = L.map('map').setView([0, 0], 2);
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-        // PHP array to JavaScript array
-        var students = <?php echo json_encode($records); ?>;
-        var bounds = [];
+    // PHP array to JavaScript array
+    var students = <?php echo json_encode($records); ?>;
+    var bounds = [];
 
-        // Add markers for each student
-        students.forEach(function(student) {
-            var lat = parseFloat(student.latitude);
-            var lng = parseFloat(student.longitude);
-            
-            if (!isNaN(lat) && !isNaN(lng)) {
-                bounds.push([lat, lng]);
-                
-                // Create marker
-                var marker = L.marker([lat, lng]).addTo(map);
-                
-                // Create popup content
-                var popupContent = `
+    // Add markers for each student
+    students.forEach(function(student) {
+        var lat = parseFloat(student.latitude);
+        var lng = parseFloat(student.longitude);
+
+        if (!isNaN(lat) && !isNaN(lng)) {
+            bounds.push([lat, lng]);
+
+            // Create marker
+            var marker = L.marker([lat, lng]).addTo(map);
+
+            // Create popup content
+            var popupContent = `
                     <div class="student-info">
                         <h3>Student ID: ${student.student_id}</h3>
                         <p><strong>Building:</strong> ${student.building_name}</p>
@@ -134,28 +136,31 @@ try {
                         <p><strong>Accuracy:</strong> ${student.tracking_accuracy}</p>
                     </div>
                 `;
-                
-                // Add popup to marker
-                marker.bindPopup(popupContent);
-            }
-        });
 
-        // Fit map to show all markers
-        if (bounds.length > 0) {
-            map.fitBounds(bounds);
+            // Add popup to marker
+            marker.bindPopup(popupContent);
         }
+    });
 
-        // Add legend
-        var legend = L.control({position: 'bottomright'});
-        legend.onAdd = function(map) {
-            var div = L.DomUtil.create('div', 'info legend');
-            div.innerHTML = '<strong>Student Locations</strong><br>Click markers for details';
-            div.style.backgroundColor = 'white';
-            div.style.padding = '10px';
-            div.style.borderRadius = '5px';
-            return div;
-        };
-        legend.addTo(map);
+    // Fit map to show all markers
+    if (bounds.length > 0) {
+        map.fitBounds(bounds);
+    }
+
+    // Add legend
+    var legend = L.control({
+        position: 'bottomright'
+    });
+    legend.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'info legend');
+        div.innerHTML = '<strong>Student Locations</strong><br>Click markers for details';
+        div.style.backgroundColor = 'white';
+        div.style.padding = '10px';
+        div.style.borderRadius = '5px';
+        return div;
+    };
+    legend.addTo(map);
     </script>
 </body>
+
 </html>

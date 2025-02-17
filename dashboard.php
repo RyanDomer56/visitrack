@@ -2,17 +2,31 @@
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "";
-$dbname = "tracker_system";
+$password = "kingsdeath10";
+$dbname = "";
+
+$dsn = "mysql:host=$servername; dbname=$dbname; charset=utf8mb4";
+
+require_once __DIR__ . "/backend/dbCon.php";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new Database($dsn, $username, $password);
     
-    // Fetch data from student_tracking_log table
-    $query = "SELECT * FROM student_tracking_log ORDER BY created_at DESC";
-    $stmt = $conn->query($query);
-    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $pdo = $db->getConnection();
+
+    $stmt = $pdo->prepare("SELECT * FROM student_tracking_log ORDER BY created_at DESC");
+
+    $stmt->execute();
+
+    $records = $stmt->fetchAll();
+
+    // $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // // Fetch data from student_tracking_log table
+    // $query = "SELECT * FROM student_tracking_log ORDER BY created_at DESC";
+    // $stmt = $conn->query($query);
+    // $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();

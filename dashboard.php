@@ -1,15 +1,8 @@
 <?php
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "kingsdeath10";
-$dbname = "";
-
-
 
 require_once __DIR__ . "/backend/Database.php";
 require_once __DIR__ . "/backend/DatabaseFactory.php";
-
 
 try {
     // **Load the configuration array from config.php**
@@ -106,17 +99,29 @@ try {
                 <tbody>
                     <?php foreach ($records as $record): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($record['student_id']); ?></td>
-                        <td class="timestamp"><?php echo htmlspecialchars($record['time_in']); ?></td>
-                        <td class="timestamp"><?php echo htmlspecialchars($record['time_out']); ?></td>
-                        <td><?php echo htmlspecialchars($record['building_name']); ?></td>
+                        <td><?= htmlspecialchars($record['student_id']); ?></td>
+                        <td class="timestamp">
+                            <?= htmlspecialchars($record['time_in']); ?>
+                        </td>
+                        <td class="timestamp">
+                            <?= htmlspecialchars($record['time_out']); ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($record['building_name']); ?>
+                        </td>
                         <td class="location-data">
-                            <?php echo htmlspecialchars($record['latitude']) . ', ' . 
+                            <?= htmlspecialchars($record['latitude']) . ', ' . 
                                   htmlspecialchars($record['longitude']); ?>
                         </td>
-                        <td><?php echo htmlspecialchars($record['duration_minutes']); ?></td>
-                        <td><?php echo htmlspecialchars($record['tracking_accuracy']); ?></td>
-                        <td class="timestamp"><?php echo htmlspecialchars($record['created_at']); ?></td>
+                        <td>
+                            <?= htmlspecialchars($record['duration_minutes']); ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($record['tracking_accuracy']); ?>
+                        </td>
+                        <td class="timestamp">
+                            <?= htmlspecialchars($record['created_at']); ?>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

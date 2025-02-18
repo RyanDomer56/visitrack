@@ -3,7 +3,7 @@
 class Database {
     private $pdo; 
 
-    public function __construct($dsn, string $username, string $password)
+    public function __construct(string $dsn, string $username, string $password)
     {
         try {
             $this->pdo = new PDO($dsn, $username, $password);

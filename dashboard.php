@@ -5,21 +5,33 @@ $username = "root";
 $password = "kingsdeath10";
 $dbname = "";
 
-$dsn = "mysql:host=$servername; dbname=$dbname; charset=utf8mb4";
 
-require_once __DIR__ . "/backend/dbCon.php";
+
+require_once __DIR__ . "/backend/Database.php";
+require_once __DIR__ . "/backend/DatabaseFactory.php";
+
 
 try {
-    $db = new Database($dsn, $username, $password);
-    
+    // **Load the configuration array from config.php**
+    $config = require 'config.php';
+
+    // **Create a Database object using the Factory and the configuration**
+    $db = DatabaseFactory::create($config);
+
+    // **Get the PDO connection**
     $pdo = $db->getConnection();
 
+    // **Now you can use $pdo to make SQL requests (as we showed before)**
+    // Example: Fetch users (same example as before)
     $stmt = $pdo->prepare("SELECT * FROM student_tracking_log ORDER BY created_at DESC");
-
     $stmt->execute();
-
     $records = $stmt->fetchAll();
-
+    
+    // $db = new Database($dsn, $username, $password);
+    // $pdo = $db->getConnection();
+    // $stmt = $pdo->prepare("SELECT * FROM student_tracking_log ORDER BY created_at DESC");
+    // $stmt->execute();
+    // $records = $stmt->fetchAll();
     // $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -29,7 +41,9 @@ try {
     // $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    echo "Connection Failed: " . $e->getMessage();
+} catch(InvalidArgumentException $e) {
+    echo "Configuration Error: " . $e->getMessage(); // Catch configuration errors
 }
 ?>
 

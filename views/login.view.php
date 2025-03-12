@@ -38,7 +38,10 @@
                     <a href="#">Forgot Password?</a>
                 </div>
 
-                <button type="button" class="register-btn">Register</button>
+                <a href="/registration.php">
+                    <button type="button" class="register-btn">Register</button>
+                </a>
+
             </div>
 
             <div class="footer-text">Create a peaceful environment.</div>

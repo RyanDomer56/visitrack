@@ -7,8 +7,10 @@
 
     <div class="navbar2">
         <div class="">
-            <a href="" target="_blank" id="login_btn">Login</a>
-            <button class="signup_btn">Sign Up</button>
+            <a href="/login.php" target="" id="login_btn">Login</a>
+            <a href="/registration.php">
+                <button class="signup_btn">Sign Up</button>
+            </a>
         </div>
     </div>
 

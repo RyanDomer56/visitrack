@@ -84,7 +84,9 @@
                 </div>
 
                 <div class="form-buttons">
-                    <button type="button" class="btn-cancel">Cancel</button>
+                    <a href="/login.php">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                    </a>
                     <button type="submit" class="btn-register">Register</button>
                 </div>
             </form>

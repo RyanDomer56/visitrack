@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="navigation">
-        <a href="#" class="logo">visitrack</a>
+        <a href="#" class="logo"><?= $pageText?></a>
     </div>
 
     <a href="#stay-aware" id="about">About</a>

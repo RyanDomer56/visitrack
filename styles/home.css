@@ -1,321 +1,323 @@
-    /* Check for overflow elemnt */
+/* Check for overflow elemnt */
+
+* {
+    /* outline: 1px solid red;  */
+}
+
     
-    * {
-        /* outline: 1px solid red;  */
-    }
+/* Homepage css */
+.navbar {
+    position: fixed;
+    background-color: #476fb2;  
+    padding: 1% 46% ;
+    height: 35px;
+    width: 100%;
+    z-index: 2;
+    transition: background-color 0.3s; 
+}
+
+.navigation {
+    position: absolute;
+    left: 5%;
+}
+
+a.logo {
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: white; 
+    position: relative;
+    right: 20px;
+    text-decoration: none; 
+}
+
+#about {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    color: white; 
+    text-decoration: none; 
+    margin: auto;
+    position: absolute;
+    top: 30%;
+    left: 37%;
+}
+
+
+.navbar2 {
+    position: absolute;
+    margin-left: 15%;
+    padding: 0.1% 0.4%;
+    margin-top: 0.2%;
+    border-radius: 15px;
+    border: 2px solid white;
+    display: inline-block;
+    position: absolute;
+    top: 9%;
+    left: 25.5%;
+}
+
+#login_btn {
+    color: white; 
+    font-size: 16px; /* Font size */
+    text-align: center; 
+    text-decoration: none; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.signup_btn {
+    font-family: 'Lato', sans-serif;
+    background-color: white; 
+    border-radius: 50px; 
+    font-size: 16px; 
+    text-align: center; 
+    text-decoration: none; 
+    padding: 3px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    word-spacing: 5px;
+    margin: 0;
+    padding: 0;
+    background-color: #417ADA; 
+    color: white; 
+}
+
+/* Section 1 Homepage */
+.building {
+    position: absolute;
+    left: 20%;
+    top: 35%; 
+    width: 500px;
+    height: auto; 
+    z-index: 1;
+}
+
+.desc1{
+    font-family: 'Lato', sans-serif;
+    position: relative;
+    top: 10%;
+    right: 11%;
+    text-align: right; 
+    padding-top: 50px;
+}
+
+.desc1 h1{
+    margin-top: 8%;
+    font-size: 30px;
+    margin-bottom: 3%;
+}
+
+.desc1 p{
+    font-size: 15px;
+    margin-top: 0; 
+    padding-bottom: 35px;
+}
+
+a.register_btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    background-color: #ffffff; 
+    color: rgb(0, 0, 0); 
+    padding: 15px 50px;
+    position: relative;
+    left: 15%;
+    border-radius: 50px; 
+    cursor: pointer;
+    font-size: 16px; 
+    margin: 70px 20% 5% 0;
+    text-decoration: none; 
+}
+
+a.contact_btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    background-color: #417ADA;
+    color: white; 
+    border: white 1px solid;
+    padding: 15px 40px;
+    border-radius: 50px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    position: relative;
+    right: 2%;
+    margin-top: 20px; 
+    margin-bottom: 193px;
+    text-decoration: none; 
+    display: inline-block; 
+}
+
+.register_btn:hover {
+    background-color: #f7f7f7b4; 
+    color: #000000; 
+}
+
+.contact_btn:hover {
+    background-color: #0d244d;
+    color: #ffffff;
+}
+
+hr {
+    border: none;
+    height: 1px; 
+    background-color: #ccc; 
+    margin: 20px 0;
+    z-index: 2;
+}
+
+/* Section 2 Homepage */
+.section2 {
+    font-family: 'Lato', sans-serif;
+    position: relative;
+    top: 10%;
+    text-align: left; 
+    padding-top: 5px;
+}
+
+.desc2 h1 {
+    font-size: 30px;
+    margin-bottom: 3%;
+}
+
+.desc2 h1, .desc2 p {
+    position: relative;
+    left: 9%;
+    display: inline-block;
+    margin-bottom: 2%;
+    text-align: left;
+}
+
+.desc2 p {
+    font-size: 15px;
+}
+
+.desc2 h2{
+    position: relative;
+    display: inline-block;
+    left: 9%;
+}
+
+
+
+.city {
+    position: absolute;
+    transform: scaleX(-1);
+    top: -1%;
+    right: 11%;
+    width: 450px;
+    height: auto; 
+    z-index: 1;
+
+}
+
+.desc3{
+    position: relative;
+    margin-top: 7%;
+}
+
+.desc3 h1, .desc3 p {
+    position: relative;
+    left: 38%;
+    display: inline-block;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    text-align: right; 
+}
+.desc3 p {
+    font-size: 15px;
+}
+
+.map {
+    position: absolute;
+    bottom: 8%;
+    left: 9%;
+    transform: scaleX(-1);
+    width: 370px;
+    height: auto; 
+    z-index: 1;
+}
+
+/* Section 3 Homepage */
+
+.desc4 {
+    position: relative;
+}
+
+.desc4 h1, .desc4 p {
+    position: relative;
+    left: 9%;
+    display: inline-block;
+    text-align: left; 
+}
+
+.desc4 h1 {
+    font-size: 30px;
+    margin-bottom: -3%;
+}
+
+.students {
+    position: absolute;
+    top: 10%;
+    right: 11%;
+    width: 400px;
+    height: auto; 
+    z-index: 1;
+}
+
+.desc5 {
+    position: relative;
+    margin-top: 8%;
+    text-align: right;
+}
+
+.desc5 h1, .desc5 p {
+    position: relative;
+    left: -11%;
+    display: inline-block;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    text-align: right; 
+}
+
+.desc5 h1 {
+    font-size: 30px;
+    margin-bottom: 2%;
+}
+
+.desc5 p {
+    font-size: 15px;
+    margin-top: -1%;
+    margin-bottom: 9%;
+}
+
+.security {
+    position: absolute;
+    top: 1%;
+    left: 9%;
+    width: 450px;
+    height: auto; 
+    z-index: 1;
+}
     
-      
-      /* Homepage css */
-    .navbar {
-        position: fixed;
-        background-color: #476fb2;  
-        padding: 1% 46% ;
-        height: 35px;
-        width: 100%;
-        z-index: 2;
-        transition: background-color 0.3s; 
-    }
-    
-    .navigation {
-        position: absolute;
-        left: 5%;
-    }
-    
-    a.logo {
-        font-family: 'Lato', sans-serif;
-        font-size: 30px;
-        font-weight: bold;
-        color: white; 
-        position: relative;
-        right: 20px;
-        text-decoration: none; 
-    }
-    
-    #about {
-        font-family: 'Lato', sans-serif;
-        font-size: 20px;
-        color: white; 
-        text-decoration: none; 
-        margin: auto;
-        position: absolute;
-        top: 30%;
-        left: 37%;
-    }
-    
-    
-    .navbar2 {
-        position: absolute;
-        margin-left: 15%;
-        padding: 0.1% 0.4%;
-        margin-top: 0.2%;
-        border-radius: 15px;
-        border: 2px solid white;
-        display: inline-block;
-        position: absolute;
-        top: 9%;
-        left: 25.5%;
-    }
-    
-    #login_btn {
-        color: white; 
-        font-size: 16px; /* Font size */
-        text-align: center; 
-        text-decoration: none; 
-        transition: background-color 0.3s, color 0.3s;
-    }
-    
-    .signup_btn {
-        font-family: 'Lato', sans-serif;
-        background-color: white; 
-        border-radius: 50px; 
-        font-size: 16px; 
-        text-align: center; 
-        text-decoration: none; 
-        padding: 3px 10px;
-        transition: background-color 0.3s, color 0.3s;
-    }
-    
-    body {
-        font-family: 'Lato', sans-serif;
-        word-spacing: 5px;
-        margin: 0;
-        padding: 0;
-        background-color: #417ADA; 
-        color: white; 
-    }
-    
-        /* Section 1 Homepage */
-    .building {
-        position: absolute;
-        left: 20%;
-        top: 35%; 
-        width: 500px;
-        height: auto; 
-        z-index: 1;
-    }
-    
-    .desc1{
-        font-family: 'Lato', sans-serif;
-        position: relative;
-        top: 10%;
-        right: 11%;
-        text-align: right; 
-        padding-top: 50px;
-    }
-    
-    .desc1 h1{
-        margin-top: 8%;
-        font-size: 30px;
-        margin-bottom: 3%;
-    }
-    
-    .desc1 p{
-        font-size: 15px;
-        margin-top: 0; 
-        padding-bottom: 35px;
-    }
-    
-    a.register_btn {
-        font-family: 'Lato', sans-serif;
-        font-weight: bold;
-        background-color: #ffffff; 
-        color: rgb(0, 0, 0); 
-        padding: 15px 50px;
-        position: relative;
-        left: 15%;
-        border-radius: 50px; 
-        cursor: pointer;
-        font-size: 16px; 
-        margin: 70px 20% 5% 0;
-        text-decoration: none; 
-    }
-    
-    a.contact_btn {
-        font-family: 'Lato', sans-serif;
-        font-weight: bold;
-        background-color: #417ADA;
-        color: white; 
-        border: white 1px solid;
-        padding: 15px 40px;
-        border-radius: 50px; 
-        cursor: pointer; 
-        font-size: 16px; 
-        position: relative;
-        right: 2%;
-        margin-top: 20px; 
-        margin-bottom: 193px;
-        text-decoration: none; 
-        display: inline-block; 
-    }
-    
-    .register_btn:hover {
-        background-color: #f7f7f7b4; 
-        color: #000000; 
-    }
-    
-    .contact_btn:hover {
-        background-color: #0d244d;
-        color: #ffffff;
-    }
-    
-    hr {
-        border: none;
-        height: 1px; 
-        background-color: #ccc; 
-        margin: 20px 0;
-        z-index: 2;
-    }
-        /* Section 2 Homepage */
-    .section2 {
-        font-family: 'Lato', sans-serif;
-        position: relative;
-        top: 10%;
-        text-align: left; 
-        padding-top: 5px;
-    }
-    
-    .desc2 h1 {
-        font-size: 30px;
-        margin-bottom: 3%;
-    }
-    
-    .desc2 h1, .desc2 p {
-        position: relative;
-        left: 9%;
-        display: inline-block;
-        margin-bottom: 2%;
-        text-align: left;
-    }
-    
-    .desc2 p {
-        font-size: 15px;
-    }
-    
-    .desc2 h2{
-        position: relative;
-        display: inline-block;
-        left: 9%;
-    }
-    
-    
-    
-    .city {
-        position: absolute;
-        transform: scaleX(-1);
-        top: -1%;
-        right: 11%;
-        width: 450px;
-        height: auto; 
-        z-index: 1;
-    
-    }
-    
-    .desc3{
-        position: relative;
-        margin-top: 7%;
-    }
-    
-    .desc3 h1, .desc3 p {
-        position: relative;
-        left: 38%;
-        display: inline-block;
-        margin-bottom: 5%;
-        margin-left: 5%;
-        text-align: right; 
-    }
-    .desc3 p {
-        font-size: 15px;
-    }
-    
-    .map {
-        position: absolute;
-        bottom: 8%;
-        left: 9%;
-        transform: scaleX(-1);
-        width: 370px;
-        height: auto; 
-        z-index: 1;
-    }
-    
-    /* Section 3 Homepage */
-    
-    .desc4 {
-        position: relative;
-    }
-    
-    .desc4 h1, .desc4 p {
-        position: relative;
-        left: 9%;
-        display: inline-block;
-        text-align: left; 
-    }
-    
-    .desc4 h1 {
-        font-size: 30px;
-        margin-bottom: -3%;
-    }
-    
-    .students {
-        position: absolute;
-        top: 10%;
-        right: 11%;
-        width: 400px;
-        height: auto; 
-        z-index: 1;
-    }
-    
-    .desc5 {
-        position: relative;
-        margin-top: 8%;
-        text-align: right;
-    }
-    
-    .desc5 h1, .desc5 p {
-        position: relative;
-        left: -11%;
-        display: inline-block;
-        margin-bottom: 5%;
-        margin-left: 5%;
-        text-align: right; 
-    }
-    
-    .desc5 h1 {
-        font-size: 30px;
-        margin-bottom: 2%;
-    }
-    
-    .desc5 p {
-        font-size: 15px;
-        margin-top: -1%;
-        margin-bottom: 9%;
-    }
-    
-    .security {
-        position: absolute;
-        top: 1%;
-        left: 9%;
-        width: 450px;
-        height: auto; 
-        z-index: 1;
-    }
-    
-            /* Footer  css */
-            .footer {
-                background-color: #000000; 
-                color: white; 
-                padding: 7px 0; 
-            }
-            .section6 {
-                display: flex; 
-                justify-content: space-between; 
-                align-items: center; 
-                max-width: 1200px; 
-                margin: 0 auto; 
-                padding: 0 20px; 
-            }
-            #terms {
-                text-align: right; /* Align text to the right */
-            }
+/* Footer  css */
+ .footer {
+    background-color: #000000; 
+    color: white; 
+    padding: 7px 0; 
+}
+.section6 {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+#terms {
+    text-align: right; /* Align text to the right */
+}
+   
     
     
           

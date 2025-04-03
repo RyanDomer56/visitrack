@@ -1,0 +1,94 @@
+/* Check for overflow elemnt */
+
+* {
+   
+}
+
+    
+/* Homepage css */
+.navbar {
+    position: fixed;
+    background-color: #476fb2;  
+    padding: 1% 46% ;
+    height: 35px;
+    width: 100%;
+    z-index: 2;
+    transition: background-color 0.3s; 
+}
+
+.navigation {
+    position: absolute;
+    left: 5%;
+}
+
+a.logo {
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: white; 
+    position: relative;
+    right: 20px;
+    text-decoration: none; 
+}
+
+#about {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    color: white; 
+    text-decoration: none; 
+    margin: auto;
+    position: absolute;
+    top: 30%;
+    left: 37%;
+}
+
+
+.navbar2 {
+    position: absolute;
+    margin-left: 15%;
+    padding: 0.1% 0.4%;
+    margin-top: 0.2%;
+    border-radius: 15px;
+    border: 2px solid white;
+    display: inline-block;
+    position: absolute;
+    top: 9%;
+    left: 25.5%;
+}
+
+#login_btn {
+    color: white; 
+    font-size: 16px; /* Font size */
+    text-align: center; 
+    text-decoration: none; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.signup_btn {
+    font-family: 'Lato', sans-serif;
+    background-color: white; 
+    border-radius: 50px; 
+    font-size: 16px; 
+    text-align: center; 
+    text-decoration: none; 
+    padding: 3px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Footer  css */
+.footer {
+    background-color: #000000; 
+    color: white; 
+    padding: 7px 0; 
+}
+.section6 {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+#terms {
+    text-align: right; /* Align text to the right */
+}

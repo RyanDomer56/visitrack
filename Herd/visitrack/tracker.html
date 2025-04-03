@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visitor Tracking System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="styles/tracker.css">
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Map Section -->
+        <div class="card">
+            <div id="map"></div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="sidebar">
+            <!-- Visitor Information -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Visitor Information</h3>
+                </div>
+                <div class="card-content">
+                    <div class="input-group">
+                        <input type="text" id="visitorId" placeholder="Enter Visitor ID">
+                        <div class="button-group">
+                            <button class="start" onclick="startTracking()">Start Tracking</button>
+                            <button class="stop" onclick="stopTracking()">Stop Tracking</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Information -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Location Information</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-grid">
+                        <span class="info-label">Latitude:</span>
+                        <span class="info-value" id="latitude">-</span>
+                        <span class="info-label">Longitude:</span>
+                        <span class="info-value" id="longitude">-</span>
+                        <span class="info-label">Accuracy:</span>
+                        <span class="info-value"><span id="accuracy">-</span> meters</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Building Information -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Building Information</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-grid">
+                        <span class="info-label">Current:</span>
+                        <span class="info-value" id="currentBuilding">Not in any building</span>
+                        <span class="info-label">Time Spent:</span>
+                        <span class="info-value" id="timeSpent">0 minutes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visit History -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Visit History</h3>
+                </div>
+                <div class="card-content">
+                    <div class="history-panel" id="visitHistory"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="tracker.js" defer></script>
+</body>
+</html>
